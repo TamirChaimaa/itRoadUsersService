@@ -24,7 +24,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role = "ADHERANT";
+    private String role = "Adherant";
 
     private String name;
 
