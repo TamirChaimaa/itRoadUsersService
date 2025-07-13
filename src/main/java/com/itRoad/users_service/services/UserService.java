@@ -128,6 +128,9 @@ public class UserService {
         dto.setRole(user.getRole());
         dto.setStatus(user.getStatus());
         dto.setLastLogin(user.getLastLogin());
+        dto.setBio(user.getBio());
+        dto.setAddress(user.getAddress());
+        dto.setPhoneNumber(user.getPhoneNumber());
         return dto;
     }
 }
