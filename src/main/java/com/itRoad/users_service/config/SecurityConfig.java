@@ -61,7 +61,8 @@ public class SecurityConfig {
 
         // Allow specific origins
         configuration.setAllowedOrigins(Arrays.asList(
-                "https://it-road-frontend-git-main-tamirchaimaas-projects.vercel.app/"
+                "https://it-road-frontend.vercel.app",
+                "https://it-road-frontend-git-main-tamirchaimaas-projects.vercel.app"
         ));
 
         // Allow all methods
