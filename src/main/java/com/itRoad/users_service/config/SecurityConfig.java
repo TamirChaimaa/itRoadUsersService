@@ -45,9 +45,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/users/**").authenticated()
 
                         // Endpoints qui nécessitent le rôle ADMIN
-                        .requestMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("Admin")
-                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("Admin")
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("Admin")
+                        .requestMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("ADHERANT")
+                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("ADHERANT")
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("ADHERANT")
 
                         .anyRequest().authenticated()
                 )
