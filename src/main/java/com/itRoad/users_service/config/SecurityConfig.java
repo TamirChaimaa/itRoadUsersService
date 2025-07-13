@@ -38,7 +38,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Endpoints publics
-                        .requestMatchers(HttpMethod.OPTIONS,"/", "/health", "/actuator/**", "/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/", "/health", "/actuator/**").permitAll()
 
                         // Endpoints qui nécessitent une authentification
                         .requestMatchers(HttpMethod.GET, "/api/users/**").authenticated()
@@ -57,10 +58,26 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allow specific origins
+        configuration.setAllowedOrigins(Arrays.asList(
+                "https://it-road-frontend-git-main-tamirchaimaas-projects.vercel.app/"
+        ));
+
+        // Allow all methods
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+
+        // Allow all headers
         configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // Allow credentials
         configuration.setAllowCredentials(true);
+
+        // Expose headers (useful for JWT tokens in headers)
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        // Max age for preflight requests
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
