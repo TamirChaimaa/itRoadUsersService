@@ -75,28 +75,39 @@ public class UserService {
         User savedUser = userRepository.save(user);
         return convertToDTO(savedUser);
     }
-
+    // Add this updated method to your UserService.java class
     public UserDTO updateUser(Long id, UpdateUserRequest request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
-        if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
+        // Update name if provided
+        if (request.getName() != null && !request.getName().trim().isEmpty()) {
+            user.setName(request.getName().trim());
+        }
+
+        // Update email if provided and different from current
+        if (request.getEmail() != null && !request.getEmail().trim().isEmpty() &&
+                !request.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(request.getEmail())) {
                 throw new EmailAlreadyExistsException("Email already exists: " + request.getEmail());
             }
-            user.setEmail(request.getEmail());
+            user.setEmail(request.getEmail().trim());
         }
 
-        if (request.getName() != null) {
-            user.setName(request.getName());
+        // Update bio if provided
+        if (request.getBio() != null) {
+            user.setBio(request.getBio().trim());
         }
 
-        if (request.getRole() != null) {
-            user.setRole(request.getRole());
+        // Update address if provided
+        if (request.getAddress() != null) {
+            user.setAddress(request.getAddress().trim());
         }
 
-        if (request.getStatus() != null) {
-            user.setStatus(request.getStatus());
+        // Update phone number if provided and different from current
+        if (request.getPhoneNumber() != null && !request.getPhoneNumber().trim().isEmpty() &&
+                !request.getPhoneNumber().equals(user.getPhoneNumber())) {
+            user.setPhoneNumber(request.getPhoneNumber().trim());
         }
 
         User updatedUser = userRepository.save(user);

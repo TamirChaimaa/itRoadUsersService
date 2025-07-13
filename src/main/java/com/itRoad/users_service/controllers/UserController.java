@@ -98,16 +98,6 @@ public class UserController {
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserRequest request) {
 
-        // Check if current user is admin
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("Admin"));  // Corrected with ROLE_ prefix
-
-        // If user is not admin, disallow role changes
-        if (!isAdmin && request.getRole() != null) {
-            request.setRole(null);
-        }
-
         UserDTO updatedUser = userService.updateUser(id, request);
         return ResponseEntity.ok(updatedUser);
     }

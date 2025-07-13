@@ -8,27 +8,21 @@ import jakarta.validation.constraints.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class UpdateUserRequest {
 
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    private String username;
-
-    @Size(min = 6, message = "Password must be at least 6 characters")
-    private String password;
-
-    private String role;
-
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     private String name;
 
-    @Email(message = "Email should be valid")
+    @Email(message = "Please provide a valid email address")
     private String email;
 
-    private String status;
-
-    private String address;
-
+    @Size(max = 500, message = "Bio must not exceed 500 characters")
     private String bio;
 
-    @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Phone number should be valid")
+    @Size(max = 200, message = "Address must not exceed 200 characters")
+    private String address;
+
+    @Size(max = 20, message = "Phone number must not exceed 20 characters")
     private String phoneNumber;
 }
